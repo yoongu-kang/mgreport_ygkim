@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Google Fonts (Inter, Noto Sans KR) 로드 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.2om" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     
     <style>
@@ -182,10 +182,12 @@
                 new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: ['06시', '09시', '12시', '16시', '18시', '20시', '22시', '24시'],
+                        // 변경된 부분: labels 배열 (06시부터 24시까지 2시간 간격)
+                        labels: ['06시', '08시', '10시', '12시', '14시', '16시', '18시', '20시', '22시', '24시'],
                         datasets: [{
                             label: '나의 학습 집중도',
-                            data: [5, 4, 12, 19, 27, 30, 19, 8], 
+                            // 새로운 레이블에 맞춰 데이터 조정 (09-16시 낮게, 18-20시 높게 유지)
+                            data: [0, 0, 3, 5, 8, 15, 28, 29, 9, 3], 
                             borderColor: '#4f46e5', // Indigo
                             backgroundColor: gradient,
                             fill: true,
@@ -196,7 +198,8 @@
                             pointHoverRadius: 6,
                         }, {
                             label: '전체 동학년 평균',
-                            data: [16, 24, 12, 16, 20, 28, 32, 20],
+                            // 새로운 레이블에 맞춰 데이터 조정 (기존 곡선 모양 유지)
+                            data: [3, 12, 10, 12, 18, 25, 28, 25, 23, 17],
                             borderColor: '#a5b4fc', // Light Indigo
                             fill: false,
                             tension: 0.4,
@@ -205,7 +208,8 @@
                             pointRadius: 0,
                         }, {
                             label: '스윗타임 이용자 평균',
-                            data: [25, 33, 22, 25, 30, 38, 42, 31], 
+                            // 새로운 레이블에 맞춰 데이터 조정 (전체 동학년 평균보다 높게 유지)
+                            data: [5, 18, 15, 18, 27, 32, 38, 35, 33, 30], 
                             borderColor: '#facc15', // Yellow-400
                             backgroundColor: '#facc15',
                             fill: false,
