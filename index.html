@@ -12,7 +12,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <!-- Google Fonts (Inter, Noto Sans KR) 로드 -->
-    <!-- 수정: 오타 수정 (gstatic.2om -> gstatic.com) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
@@ -34,16 +33,43 @@
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
             margin-bottom: 1.5rem; /* 24px */
         }
-        /* 개선: 불필요한 .tag 스타일 제거 (HTML 내에서 사용되지 않음) */
+
+        /* 인쇄 시 스타일 조정 */
+        @media print {
+            body {
+                background-color: #ffffff; /* 인쇄 시 배경색 제거 */
+                color: #000000; /* 인쇄 시 텍스트 색상을 검정으로 */
+                -webkit-print-color-adjust: exact; /* 배경색 및 이미지 인쇄 강제 */
+                print-color-adjust: exact;
+            }
+            .section-card {
+                box-shadow: none; /* 인쇄 시 그림자 제거 */
+                border: 1px solid #e5e7eb; /* 인쇄 시 테두리 추가 */
+                margin-bottom: 1rem; /* 인쇄 시 마진 조정 */
+                padding: 1rem; /* 인쇄 시 패딩 조정 */
+            }
+            /* 차트 컨테이너의 높이를 고정하여 겹침 방지 */
+            .chart-container {
+                height: 300px !important; /* 인쇄 시 차트 높이 고정 */
+                max-height: 300px !important; /* 최대 높이도 고정 */
+                width: 100% !important; /* 너비는 100% 유지 */
+            }
+            /* 차트 아래 텍스트 박스의 마진 조정 */
+            .chart-info-box {
+                margin-top: 1.5rem !important; /* 차트와 겹치지 않도록 위쪽 마진 추가 */
+            }
+            /* 불필요한 요소 숨기기 (예: 푸터) */
+            footer {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- antialiased 클래스는 body 태그의 style에서 처리하므로 제거해도 되지만, Tailwind 관례상 유지 -->
     <main class="max-w-3xl mx-auto p-4 md:p-6">
         <!-- 리포트 제목 및 기간 섹션 -->
         <div class="text-center mb-8">
-            <!-- 반응형 폰트 크기 적용 (모바일: 3xl, 데스크탑: 4xl) -->
             <h1 class="text-3xl md:text-4xl font-bold text-gray-800">김영광 학생 월간 리포트</h1>
             <p class="text-md md:text-lg text-gray-500 mt-2">2025년 7월 학습 분석</p>
             <div class="mt-3 text-sm text-gray-400">
@@ -52,8 +78,6 @@
         </div>
 
         <!-- D-Day 섹션 (반응형 개선) -->
-        <!-- 개선: .section-card 클래스와 중복되는 Tailwind 클래스(bg-white, rounded-lg, mb-6) 제거하여 코드 간결화 -->
-        <!-- p-4는 .section-card의 p-6(1.5rem)를 덮어쓰기 위해 유지 -->
         <section class="section-card p-4 flex flex-col sm:flex-row items-center sm:items-start justify-between text-center sm:text-left">
             <div class="flex items-center mb-3 sm:mb-0 sm:mr-4">
                 <span class="text-red-600 font-bold text-3xl sm:text-2xl mr-2 sm:mr-4 flex-shrink-0">D-61</span>
@@ -127,8 +151,8 @@
                     </p>
                 </div>
                 <div class="bg-gray-50 p-3 rounded-lg mt-3 space-y-2">
-                     <label class="flex items-center text-sm cursor-pointer"><input type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 mr-2"><span>밀도를 이용해 혼합물을 분리하는 방법을 설명할 수 있나요?</span></label>
-                     <label class="flex items-center text-sm cursor-pointer"><input type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 mr-2"><span>온도와 압력에 따른 기체의 용해도를 설명할 수 있나요?</span></label>
+                    <label class="flex items-center text-sm cursor-pointer"><input type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 mr-2"><span>밀도를 이용해 혼합물을 분리하는 방법을 설명할 수 있나요?</span></label>
+                    <label class="flex items-center text-sm cursor-pointer"><input type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 mr-2"><span>온도와 압력에 따른 기체의 용해도를 설명할 수 있나요?</span></label>
                 </div>
             </div>
         </div>
@@ -140,10 +164,12 @@
         <div class="section-card">
             <h3 class="text-xl font-bold text-gray-800 mb-3">⏰ 시간대별 수강 시간</h3>
             <!-- 반응형 차트 높이 조절 (모바일: h-64, 데스크탑: h-80) -->
-            <div class="w-full h-64 md:h-80">
+            <!-- 차트 컨테이너에 chart-container 클래스 추가 -->
+            <div class="w-full h-64 md:h-80 chart-container">
                 <canvas id="studyHabitsChart"></canvas>
             </div>
-            <div class="mt-4 bg-indigo-50 p-4 rounded-lg">
+            <!-- 차트 아래 텍스트 박스에 chart-info-box 클래스 추가 -->
+            <div class="mt-4 bg-indigo-50 p-4 rounded-lg chart-info-box">
                 <p class="font-bold text-lg text-indigo-800">💡 시간 관리 및 학습 시간 추천 </p>
                 <p class="text-sm text-indigo-700 mt-3">
                     영광 학생은 주로 <strong class="font-bold">저녁 6시 ~ 8시</strong>에 인강을 수강합니다. <strong class="font-bold">8시에 저녁 식사 후에도 혹시 한 강 더! 가능한가요?</strong> 물론 지금도 또래 친구들보다 너무 잘 하고 있어요 😆 
