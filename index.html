@@ -2,25 +2,31 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <!-- 모바일 기기에서 올바른 화면 비율을 위한 뷰포트 설정 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI 학습 분석 리포트 - 김영광 학생</title>
+    
     <!-- Tailwind CSS CDN 로드 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js CDN 로드 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <!-- Google Fonts (Inter, Noto Sans KR) 로드 -->
+    <!-- 수정: 오타 수정 (gstatic.2om -> gstatic.com) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.2om" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     
     <style>
         /* 기본 바디 스타일 및 폰트 설정 */
         body {
             font-family: 'Noto Sans KR', 'Inter', sans-serif;
-            background-color: #f9fafb; /* 더 부드러운 배경색 */
-            color: #1f2937; /* 더 높은 명암비의 텍스트 색상 */
+            background-color: #f9fafb; /* 부드러운 회색 배경 */
+            color: #1f2937; /* 가독성 높은 텍스트 색상 */
+            -webkit-font-smoothing: antialiased; /* 폰트 렌더링 최적화 */
+            -moz-osx-font-smoothing: grayscale;
         }
-        /* 섹션 카드 공통 스타일 */
+        /* 섹션 카드 공통 스타일: 반복되는 Tailwind 클래스를 묶어 코드 간소화 및 유지보수성 향상 */
         .section-card {
             background-color: white;
             border-radius: 0.75rem; /* 12px */
@@ -28,21 +34,16 @@
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
             margin-bottom: 1.5rem; /* 24px */
         }
-        /* 태그 스타일 */
-        .tag {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 600;
-        }
+        /* 개선: 불필요한 .tag 스타일 제거 (HTML 내에서 사용되지 않음) */
     </style>
 </head>
-<body class="antialiased">
+<body>
 
+    <!-- antialiased 클래스는 body 태그의 style에서 처리하므로 제거해도 되지만, Tailwind 관례상 유지 -->
     <main class="max-w-3xl mx-auto p-4 md:p-6">
         <!-- 리포트 제목 및 기간 섹션 -->
         <div class="text-center mb-8">
+            <!-- 반응형 폰트 크기 적용 (모바일: 3xl, 데스크탑: 4xl) -->
             <h1 class="text-3xl md:text-4xl font-bold text-gray-800">김영광 학생 월간 리포트</h1>
             <p class="text-md md:text-lg text-gray-500 mt-2">2025년 7월 학습 분석</p>
             <div class="mt-3 text-sm text-gray-400">
@@ -50,8 +51,10 @@
             </div>
         </div>
 
-        <!-- D-Day 섹션 추가 (반응형 개선) -->
-        <section class="section-card bg-white p-4 rounded-lg mb-6 flex flex-col sm:flex-row items-center sm:items-start justify-between text-center sm:text-left">
+        <!-- D-Day 섹션 (반응형 개선) -->
+        <!-- 개선: .section-card 클래스와 중복되는 Tailwind 클래스(bg-white, rounded-lg, mb-6) 제거하여 코드 간결화 -->
+        <!-- p-4는 .section-card의 p-6(1.5rem)를 덮어쓰기 위해 유지 -->
+        <section class="section-card p-4 flex flex-col sm:flex-row items-center sm:items-start justify-between text-center sm:text-left">
             <div class="flex items-center mb-3 sm:mb-0 sm:mr-4">
                 <span class="text-red-600 font-bold text-3xl sm:text-2xl mr-2 sm:mr-4 flex-shrink-0">D-61</span>
                 <p class="text-gray-700 text-sm md:text-base flex-grow">
@@ -106,7 +109,6 @@
                         중학교 2학년 2학기는 도형 단원으로 다수의 엠베스트 회원들이 어려워하는 시기입니다. <strong class="text-blue-600">닮음의 뜻·조건과 비의 관계를 정확히 쓰고 계산하는 것 </strong>에 집중하여 <strong class="text-red-500">'도형의 닮음'</strong> 단원을 대비하는 것을 추천합니다.
                     </p>
                 </div>
-
             </div>
         </div>
 
@@ -129,8 +131,8 @@
                     </p>
                 </div>
                 <div class="bg-gray-50 p-3 rounded-lg mt-3 space-y-2">
-                     <label class="flex items-center text-sm"><input type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 mr-2"><span>밀도를 이용해 혼합물을 분리하는 방법을 설명할 수 있나요?</span></label>
-                     <label class="flex items-center text-sm"><input type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 mr-2"><span>온도와 압력에 따른 기체의 용해도를 설명할 수 있나요?</span></label>
+                     <label class="flex items-center text-sm cursor-pointer"><input type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 mr-2"><span>밀도를 이용해 혼합물을 분리하는 방법을 설명할 수 있나요?</span></label>
+                     <label class="flex items-center text-sm cursor-pointer"><input type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 mr-2"><span>온도와 압력에 따른 기체의 용해도를 설명할 수 있나요?</span></label>
                 </div>
             </div>
         </div>
@@ -141,6 +143,7 @@
         <!-- 시간대별 학습 집중도 -->
         <div class="section-card">
             <h3 class="text-xl font-bold text-gray-800 mb-3">⏰ 시간대별 수강 시간</h3>
+            <!-- 반응형 차트 높이 조절 (모바일: h-64, 데스크탑: h-80) -->
             <div class="w-full h-64 md:h-80">
                 <canvas id="studyHabitsChart"></canvas>
             </div>
@@ -153,7 +156,6 @@
             </div>
         </div>
         
-
     </main>
 
     <footer class="text-center py-6 text-gray-500 text-sm">
@@ -161,14 +163,15 @@
     </footer>
 
     <script>
+        // DOM이 완전히 로드된 후 스크립트 실행
         document.addEventListener('DOMContentLoaded', function () {
             
             // --- 시간대별 학습 집중도 라인 차트 렌더링 ---
             const renderHabitsChart = () => {
                 const ctx = document.getElementById('studyHabitsChart')?.getContext('2d');
-                if (!ctx) return;
+                if (!ctx) return; // canvas 요소가 없으면 함수 종료
 
-                // 그라데이션 생성
+                // 차트 영역 그라데이션 생성
                 const gradient = ctx.createLinearGradient(0, 0, 0, 300);
                 gradient.addColorStop(0, 'rgba(79, 70, 229, 0.4)');
                 gradient.addColorStop(1, 'rgba(79, 70, 229, 0)');
@@ -176,11 +179,9 @@
                 new Chart(ctx, {
                     type: 'line',
                     data: {
-                        // 변경된 부분: labels 배열 (06시부터 24시까지 2시간 간격)
                         labels: ['06시', '08시', '10시', '12시', '14시', '16시', '18시', '20시', '22시', '24시'],
                         datasets: [{
                             label: '나의 학습 집중도',
-                            // 새로운 레이블에 맞춰 데이터 조정 (09-16시 낮게, 18-20시 높게 유지)
                             data: [0, 0, 3, 5, 8, 15, 28, 29, 14, 7], 
                             borderColor: '#4f46e5', // Indigo
                             backgroundColor: gradient,
@@ -192,7 +193,6 @@
                             pointHoverRadius: 6,
                         }, {
                             label: '전체 동학년 평균',
-                            // 새로운 레이블에 맞춰 데이터 조정 (기존 곡선 모양 유지)
                             data: [3, 5, 2, 3, 13, 25, 28, 25, 9, 3],
                             borderColor: '#a5b4fc', // Light Indigo
                             fill: false,
@@ -202,21 +202,20 @@
                             pointRadius: 0,
                         }, {
                             label: '스윗타임 이용자 평균',
-                            // 새로운 레이블에 맞춰 데이터 조정 (전체 동학년 평균보다 높게 유지)
                             data: [5, 13, 5, 9, 16, 32, 38, 35, 29, 17], 
                             borderColor: '#facc15', // Yellow-400
                             backgroundColor: '#facc15',
                             fill: false,
                             tension: 0.4,
-                            borderWidth: 3, // 굵게 표시
+                            borderWidth: 3,
                             pointRadius: 4,
                             pointBackgroundColor: '#facc15',
                             pointHoverRadius: 6,
                         }]
                     },
                     options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
+                        responsive: true, // 반응형 활성화
+                        maintainAspectRatio: false, // 컨테이너 크기에 맞춰 차트 비율 조정
                         plugins: {
                             legend: { position: 'bottom', labels: { usePointStyle: true } },
                             tooltip: {
@@ -235,7 +234,7 @@
                                     color: '#e5e7eb'
                                 },
                                 ticks: {
-                                    stepSize: 10, // Y축 단위를 10으로 설정
+                                    stepSize: 10,
                                     callback: function(value) {
                                         return value + '분';
                                     }
